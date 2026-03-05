@@ -1,6 +1,6 @@
 // Give your cache a name. If you update your app during the hackathon, 
 // change this to 'v2' so the phone knows to download the new files!
-const CACHE_NAME = 'deadzone-cache-v1';
+const CACHE_NAME = 'deadzone-cache-v2';
 
 // These are all the files the app needs to load when the Wi-Fi is completely off.
 const ASSETS_TO_CACHE = [
@@ -11,6 +11,7 @@ const ASSETS_TO_CACHE = [
   '/style.css',
   '/app.js',
   '/hero.jpg',
+  '/icon.png',
   'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap'
 ];
 
@@ -54,3 +55,4 @@ self.addEventListener('fetch', event => {
   );
 
 });
+
