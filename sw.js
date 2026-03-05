@@ -10,6 +10,7 @@ const ASSETS_TO_CACHE = [
   '/dashboard.html',
   '/style.css',
   '/app.js',
+  '/hero.jpg',
   'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap'
 ];
 
@@ -51,4 +52,5 @@ self.addEventListener('fetch', event => {
         return caches.match(event.request);
       })
   );
+
 });
