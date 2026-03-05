@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deadzone SOS | Emergency Network</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+</head>
+<body class="animated-bg fade-in">
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">📡 Deadzone SOS</a>
+        
+        <div class="menu-toggle" id="mobile-menu">☰</div>
+        
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="report.html">Report Emergency</a>
+            <a href="dashboard.html">Live Rescues</a>
+            <a href="guidelines.html">Survival Guide</a>
+            <a href="maps.html">Offline Maps</a>
+            <a href="admin.html" class="admin-link">Admin</a>
+            <button id="battery-toggle" class="btn-battery" title="Turn on Battery Saver">🔋 Saver</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-text">
+            <h1>Emergency Help, <br><span class="highlight">Even Without Internet.</span></h1>
+            <p class="large-text">This app works when cell towers fail. Report your emergency, and the app will automatically alert rescuers the moment a signal is found.</p>
+            <a href="report.html" class="btn-primary huge-btn">🚨 TAP HERE TO GET HELP</a>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1527018263300-35368686ffcb?q=80&w=800&auto=format&fit=crop" alt="Rescue workers helping people">
+        </div>
+    </header>
+
+    <section class="how-it-works">
+        <h2>Simple 3-Step Guide</h2>
+        <div class="card-container">
+            <div class="card">
+                <div class="card-icon">1️⃣</div>
+                <h3>Stay Calm & Open App</h3>
+                <p>Do not panic. Keep this app open. You do not need Wi-Fi or mobile data to use it.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">2️⃣</div>
+                <h3>Fill Out the Form</h3>
+                <p>Tap the big red button above. Tell us where you are and what the emergency is.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">3️⃣</div>
+                <h3>We Do The Rest</h3>
+                <p>The app will securely save your message and automatically send it to rescue teams when a connection is safe.</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "name": "Deadzone SOS Disaster Network",
+  "short_name": "Deadzone",
+  "description": "Offline-first disaster management and reporting tool.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#1e293b",
+  "theme_color": "#14b8a6",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3241/3241133.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

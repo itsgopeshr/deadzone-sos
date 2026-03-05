@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Rescues | Deadzone SOS</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+</head>
+<body class="animated-bg fade-in">
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">📡 Deadzone SOS</a>
+        <div class="menu-toggle" id="mobile-menu">☰</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="report.html">Report Emergency</a>
+            <a href="dashboard.html" class="active">Live Rescues</a>
+            <a href="guidelines.html">Survival Guide</a>
+            <a href="maps.html">Offline Maps</a>
+            <a href="admin.html" class="admin-link">Admin</a>
+            <button id="battery-toggle" class="btn-battery">🔋 Saver</button>
+        </div>
+    </nav>
+
+    <div class="page-container">
+        
+        <div class="info-panel">
+            <h2>Live Rescue Feed</h2>
+            <p class="large-text">This dashboard is connected directly to our real-time cloud database. Incoming SOS signals will appear here instantly across all devices.</p>
+            
+            <div class="status-box">
+                <h3>System Status: <span class="online-text">Live & Listening 📡</span></h3>
+                <p>Waiting for incoming sync data from mobile units...</p>
+            </div>
+
+            <ul class="feature-list" style="margin-top: 30px; font-size: 1.1rem; list-style: none;">
+                <li style="margin-bottom: 15px;">🔴 <strong>Critical:</strong> Immediate life threats (Trapped/Medical)</li>
+                <li style="margin-bottom: 15px;">🟠 <strong>Warning:</strong> Environmental hazards (Fire/Powerlines)</li>
+                <li style="margin-bottom: 15px;">⚪ <strong>Unclassified:</strong> Custom user-reported emergencies</li>
+            </ul>
+        </div>
+
+        <div class="data-panel">
+            <div class="dashboard-header">
+                <h3>Incoming Reports</h3>
+                <span id="report-count" class="badge">0 Total</span>
+            </div>
+            
+            <div id="reports-container" class="reports-feed">
+                <div class="empty-state">
+                    <p>No active reports. The area is secure.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

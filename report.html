@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Emergency | Deadzone SOS</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+</head>
+<body class="animated-bg fade-in">
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">📡 Deadzone SOS</a>
+        <div class="menu-toggle" id="mobile-menu">☰</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="report.html" class="active">Report Emergency</a>
+            <a href="dashboard.html">Live Rescues</a>
+            <a href="guidelines.html">Survival Guide</a>
+            <a href="maps.html">Offline Maps</a>
+            <a href="admin.html" class="admin-link">Admin</a>
+            <button id="battery-toggle" class="btn-battery">🔋 Saver</button>
+        </div>
+    </nav>
+
+    <div class="page-container">
+        
+        <div class="info-panel">
+            <h2>Request Rescue</h2>
+            <p class="large-text">Fill out this form. If you do not have internet, we will save it securely and send it automatically the exact moment you get a signal.</p>
+            
+            <div class="status-box">
+                <h3>Connection: <span id="status-indicator" class="online-text">🟢 Online</span></h3>
+                <p id="sync-message" class="hidden-message">⚠️ YOU ARE OFFLINE. Do not panic. Keep this page open. Your report is saved and will send automatically when signal returns.</p>
+            </div>
+        </div>
+
+        <div class="form-panel">
+            <form id="hazard-form" class="styled-form">
+                
+                <div class="form-group">
+                    <label for="type">1. What is the Emergency?</label>
+                    <select id="type" required class="large-input">
+                        <option value="" disabled selected>Tap to select...</option>
+                        <option value="Trapped Person">Trapped Person</option>
+                        <option value="Medical Emergency">Medical Emergency</option>
+                        <option value="Earthquake Damage">Earthquake / Building Collapse</option>
+                        <option value="Flooding">Severe Flooding</option>
+                        <option value="Wildfire">Wildfire / Smoke</option>
+                        <option value="Fallen Tree">Fallen Tree / Blocked Road</option>
+                        <option value="Powerline Down">Powerline Down</option>
+                        <option value="Other">Other (Unclassified)</option>
+                    </select>
+                </div>
+
+                <div class="form-group hidden" id="custom-type-group">
+                    <label for="custom-type">Describe the Emergency:</label>
+                    <input type="text" id="custom-type" class="large-input" placeholder="e.g., Gas Leak, Landslide">
+                </div>
+
+                <div class="form-group">
+                    <label for="location">2. Where are you?</label>
+                    <div class="location-wrapper">
+                        <input type="text" id="location" class="large-input" placeholder="Address or landmark..." required>
+                        <button type="button" id="gps-btn" class="btn-gps">📍 Find Me</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">3. Extra Details (Helpful for rescuers):</label>
+                    <textarea id="description" rows="3" class="large-input" placeholder="Number of people, injuries, hazards nearby..." required></textarea>
+                </div>
+
+                <button type="submit" class="huge-btn full-width">SEND REPORT NOW</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline Maps | Deadzone SOS</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+</head>
+<body class="animated-bg fade-in">
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">📡 Deadzone SOS</a>
+        <div class="menu-toggle" id="mobile-menu">☰</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="report.html">Report Emergency</a>
+            <a href="dashboard.html">Live Rescues</a>
+            <a href="guidelines.html">Survival Guide</a>
+            <a href="maps.html" class="active">Offline Maps</a>
+            <a href="admin.html" class="admin-link">Admin</a>
+            <button id="battery-toggle" class="btn-battery">🔋 Saver</button>
+        </div>
+    </nav>
+
+    <div class="page-container">
+        
+        <div class="form-panel">
+            <h2 style="color: var(--accent-teal); margin-bottom: 20px;">Get Your Offline Map</h2>
+            <p class="large-text" style="margin-bottom: 30px;">Search for your city or region below. We will redirect you to a secure map that you can save directly to your phone before the internet goes down.</p>
+            
+            <div class="form-group">
+                <label for="map-search">Enter City or Region Name:</label>
+                <input type="text" id="map-search" class="large-input" placeholder="e.g., Mumbai, Maharashtra" required>
+            </div>
+            
+            <button id="download-map-btn" class="huge-btn full-width" style="background-color: var(--accent-teal); margin-bottom: 20px;">🔍 SEARCH & DOWNLOAD</button>
+
+            <div class="status-box" style="border-left-color: #3b82f6; background-color: var(--bg-color-1);">
+                <h3 style="color: #3b82f6;">Why do this?</h3>
+                <p style="font-size: 1.1rem; color: var(--text-muted);">During a flood or earthquake, streets may be blocked. Having a local map saved on your device ensures you can navigate to safety even with zero cell tower signal.</p>
+            </div>
+        </div>
+
+        <div class="info-panel">
+            <h2 style="font-size: 2.5rem; margin-bottom: 20px;">How to Save the Map</h2>
+            
+            <ul class="feature-list" style="list-style: none; font-size: 1.2rem;">
+                <li style="margin-bottom: 25px; background: var(--card-bg); padding: 20px; border-radius: 12px;">
+                    <strong style="color: var(--accent-teal); font-size: 1.5rem;">Step 1</strong><br>
+                    Type your city name in the box and tap "Search & Download".
+                </li>
+                <li style="margin-bottom: 25px; background: var(--card-bg); padding: 20px; border-radius: 12px;">
+                    <strong style="color: var(--accent-teal); font-size: 1.5rem;">Step 2</strong><br>
+                    The Google Maps app or website will open. Look at the top right corner and tap your <strong>Profile Picture</strong> or the <strong>Menu (⋮)</strong>.
+                </li>
+                <li style="margin-bottom: 25px; background: var(--card-bg); padding: 20px; border-radius: 12px;">
+                    <strong style="color: var(--accent-teal); font-size: 1.5rem;">Step 3</strong><br>
+                    Tap <strong>"Offline maps"</strong>, then tap <strong>"Select your own map"</strong> and hit Download. The map is now safe on your phone forever!
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <script>
+        document.getElementById('download-map-btn').addEventListener('click', function() {
+            const query = document.getElementById('map-search').value;
+            if (query.trim() === '') {
+                alert("Please enter a city name first.");
+                return;
+            }
+            // Redirects to Google Maps with the searched city
+            // This is a brilliant hackathon shortcut that works universally on all phones
+            const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+            window.open(mapUrl, '_blank');
+        });
+    </script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
