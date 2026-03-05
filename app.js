@@ -230,9 +230,8 @@ const reportsContainer = document.getElementById('reports-container');
 const reportCount = document.getElementById('report-count');
 
 if (reportsContainer) {
-    // Listen to Firebase for real-time changes
     dbCloud.ref('reports').on('value', (snapshot) => {
-        reportsContainer.innerHTML = ''; // Clear container
+        reportsContainer.innerHTML = ''; 
         const data = snapshot.val();
         
         if (!data) {
@@ -241,16 +240,14 @@ if (reportsContainer) {
             return;
         }
 
-        // Convert Firebase object to an array and reverse it (newest first)
         const reportsArray = Object.values(data).reverse();
         reportCount.innerText = `${reportsArray.length} Total`;
 
         reportsArray.forEach(report => {
-            // Determine badge color
             let badgeClass = 'info'; 
             if (['Trapped Person', 'Medical Emergency'].includes(report.type)) badgeClass = 'critical';
             else if (['Wildfire', 'Powerline Down'].includes(report.type)) badgeClass = 'warning';
-            else if (report.isCustom) badgeClass = 'unclassified'; // Purple for custom
+            else if (report.isCustom) badgeClass = 'unclassified'; 
 
             const card = document.createElement('div');
             card.className = 'report-card';
@@ -266,14 +263,16 @@ if (reportsContainer) {
         });
     });
 
-    // Listen for Admin Announcements
+    // Listen for Admin Announcements (Upgraded to handle deletions)
     dbCloud.ref('announcements').on('value', (snapshot) => {
         const announcement = snapshot.val();
-        if (announcement) {
-            // If there's an active announcement, show a giant alert banner at the top of the dashboard!
-            const existingAlert = document.getElementById('broadcast-alert');
-            if(existingAlert) existingAlert.remove();
+        const existingAlert = document.getElementById('broadcast-alert');
+        
+        // Always remove the old alert first
+        if(existingAlert) existingAlert.remove();
 
+        // If an announcement exists in the database, draw it
+        if (announcement) {
             const alertDiv = document.createElement('div');
             alertDiv.id = 'broadcast-alert';
             alertDiv.style = "background: #ef4444; color: white; padding: 20px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4); animation: fadeIn 0.5s;";
@@ -286,40 +285,42 @@ if (reportsContainer) {
 
 
 // ==========================================
-// 6. ADMIN PORTAL LOGIC
+// 6. ADMIN PORTAL LOGIC (Upgraded)
 // ==========================================
 const adminLoginForm = document.getElementById('admin-login-form');
 if (adminLoginForm) {
     const loginSection = document.getElementById('admin-login-section');
     const dashboardSection = document.getElementById('admin-dashboard-section');
 
+    // Secure Login
     adminLoginForm.addEventListener('submit', (e) => {
         e.preventDefault();
+        const user = document.getElementById('admin-user').value;
         const pass = document.getElementById('admin-pass').value;
         
-        if (pass === "admin123") {
+        if (user === "Genesis" && pass === "Genesis123") {
             loginSection.classList.add('hidden');
             dashboardSection.classList.remove('hidden');
         } else {
-            alert("❌ Incorrect Passcode");
+            alert("❌ Incorrect Credentials");
         }
     });
 
+    // Logout
     document.getElementById('logout-btn').addEventListener('click', () => {
         dashboardSection.classList.add('hidden');
         loginSection.classList.remove('hidden');
         document.getElementById('admin-pass').value = '';
     });
 
-    // Admin Feature: Clear All Test Data
+    // Clear ALL Data
     document.getElementById('clear-all-btn').addEventListener('click', () => {
-        if(confirm("CRITICAL WARNING: Are you sure you want to delete ALL live rescue reports?")) {
-            dbCloud.ref('reports').remove()
-                .then(() => alert("All data wiped successfully."));
+        if(confirm("CRITICAL WARNING: Delete ALL live rescue reports?")) {
+            dbCloud.ref('reports').remove().then(() => alert("All data wiped."));
         }
     });
 
-    // Admin Feature: Send Broadcast Announcement
+    // Start Broadcast
     document.getElementById('announcement-form').addEventListener('submit', (e) => {
         e.preventDefault();
         const title = document.getElementById('announce-title').value;
@@ -330,8 +331,50 @@ if (adminLoginForm) {
             message: msg,
             timestamp: new Date().toLocaleString()
         }).then(() => {
-            alert("📢 Broadcast sent to all connected devices!");
+            alert("📢 Broadcast sent!");
             document.getElementById('announcement-form').reset();
         });
     });
+
+    // Stop Broadcast (Deletes the announcement from Firebase)
+    document.getElementById('stop-broadcast-btn').addEventListener('click', () => {
+        if(confirm("End the current broadcast? It will disappear from all user screens.")) {
+            dbCloud.ref('announcements').remove().then(() => alert("Broadcast stopped."));
+        }
+    });
+
+    // Generate Specific Delete List
+    const adminReportsList = document.getElementById('admin-reports-list');
+    if (adminReportsList) {
+        dbCloud.ref('reports').on('value', (snapshot) => {
+            adminReportsList.innerHTML = ''; // Clear list
+            const data = snapshot.val();
+            
+            if(!data) {
+                adminReportsList.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">No active reports.</p>';
+                return;
+            }
+
+            // Object.entries allows us to grab the secret Firebase ID key for each report
+            Object.entries(data).reverse().forEach(([firebaseKey, report]) => {
+                const item = document.createElement('div');
+                item.style = "display: flex; justify-content: space-between; align-items: center; background: var(--bg-color-1); padding: 12px; border-radius: 8px; border-left: 4px solid var(--accent-teal);";
+                item.innerHTML = `
+                    <div style="flex: 1; padding-right: 10px;">
+                        <strong style="display: block; font-size: 0.95rem; color: var(--text-light);">${report.type}</strong>
+                        <span style="font-size: 0.85rem; color: var(--text-muted);">${report.location}</span>
+                    </div>
+                    <button onclick="deleteSpecificReport('${firebaseKey}')" style="background: #ef4444; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: bold;">Delete</button>
+                `;
+                adminReportsList.appendChild(item);
+            });
+        });
+    }
 }
+
+// Global function so the individual delete buttons work
+window.deleteSpecificReport = function(firebaseKey) {
+    if(confirm("Delete this specific report?")) {
+        dbCloud.ref('reports/' + firebaseKey).remove();
+    }
+};
