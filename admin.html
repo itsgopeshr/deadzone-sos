@@ -42,8 +42,45 @@
                 </div>
                 <button type="submit" class="huge-btn full-width" style="background-color: #f59e0b;">LOGIN TO COMMAND</button>
             </form>
-            <p style="text-align: center; margin-top: 15px; font-size: 0.9rem; color: #64748b;">Hint for Hackathon Judges: Use password "admin123"</p>
+            <p style="text-align: center; margin-top: 15px; font-size: 0.9rem; color: #64748b;">Hint for Hackathon Judges: Use username "Genesis" and password "Genesis123"</p>
         </div>
+
+
+        <div id="admin-dashboard-section" class="hidden" style="width: 100%;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <h2>Command Center Controls</h2>
+                <button id="logout-btn" class="btn-battery" style="border-color: #ef4444; color: #ef4444;">Logout X</button>
+            </div>
+
+            <div class="card-container">
+                <div class="card" style="border-top-color: #ef4444; display: flex; flex-direction: column;">
+                    <h3>🧹 Data Management</h3>
+                    <p style="margin-bottom: 20px;">Manage active emergency signals.</p>
+                    
+                    <button id="clear-all-btn" class="huge-btn full-width" style="background-color: #ef4444; font-size: 1.1rem; padding: 12px; margin-bottom: 20px;">⚠ DELETE ALL DATA</button>
+                    
+                    <h4 style="margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid #475569; color: var(--text-light);">Delete Specific Reports:</h4>
+                    
+                    <div id="admin-reports-list" style="flex: 1; max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 5px;">
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Loading reports...</p>
+                    </div>
+                </div>
+
+                <div class="card" style="border-top-color: #3b82f6;">
+                    <h3>📢 Broadcast Announcement</h3>
+                    <p style="margin-bottom: 20px;">Push a live alert to all connected devices.</p>
+                    <form id="announcement-form">
+                        <input type="text" id="announce-title" class="large-input" placeholder="Alert Title (e.g., Tsunami Warning)" style="margin-bottom: 15px;" required>
+                        <textarea id="announce-msg" class="large-input" rows="3" placeholder="Message details..." style="margin-bottom: 15px;" required></textarea>
+                        <button type="submit" class="huge-btn full-width" style="background-color: #3b82f6; font-size: 1.1rem; padding: 12px; margin-bottom: 15px;">SEND BROADCAST</button>
+                    </form>
+                    
+                    <button id="stop-broadcast-btn" class="btn-battery full-width" style="border-color: #fbbf24; color: #fbbf24; font-size: 1rem; padding: 10px;">Stop Current Broadcast</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
 
         <div id="admin-dashboard-section" class="hidden" style="width: 100%;">
@@ -78,4 +115,5 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
     <script src="app.js"></script>
 </body>
+
 </html>
